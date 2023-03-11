@@ -12,13 +12,18 @@
   "author": "Faiza Rabhiy",
   "license": "MIT",
   "dependencies": {
+    "@types/react": "~18.0.24",
+    "@types/react-native": "~0.70.6",
+    "axios": "^1.3.4",
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
+    "cors": "^2.8.5",
     "dotenv": "^15.0.0",
     "express": "^4.17.2",
     "express-async-handler": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.1.9"
+    "mongoose": "^6.1.9",
+    "typescript": "^4.6.3"
   },
   "devDependencies": {
     "concurrently": "^7.0.0",

@@ -5,10 +5,15 @@ const dotenv = require('dotenv').config();
 const { errorHandler } = require('./middleware/errorMiddleware');
 const connectDB = require('./config/db');
 const port = process.env.PORT || 5000;
+const cors = require('cors');
+
 
 connectDB();
 
 const app = express();
+
+app.options("*", cors({ origin: '*', optionsSuccessStatus: 200 }));
+app.use(cors({origin : '*', optionsSuccessStatus: 200 }))
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

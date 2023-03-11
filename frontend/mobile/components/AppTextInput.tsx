@@ -14,7 +14,7 @@ import Spacing from "../constants/Spacing";
 const AppTextInput: React.FC<TextInputProps> = ({ ...otherProps }) => {
   const [focused, setFocused] = useState<boolean>(false);
   return (
-    <TextInput onFocus={() => { setFocused(true) }} onBlur={() => { setFocused(false) }} placeholder="Email" placeholderTextColor={Colors.darkText} style={[styles.input, focused && { borderWidth: 2, borderColor: Colors.primary ,shadowOffset:{width:4,height:Spacing},shadowColor:Colors.primary,shadowOpacity:0.3,shadowRadius:Spacing}]}
+    <TextInput onFocus={() => { setFocused(true) }} onBlur={() => { setFocused(false) }}  placeholderTextColor={Colors.darkText} style={[styles.input, focused && { borderWidth: 2, borderColor: Colors.primary ,shadowOffset:{width:4,height:Spacing},shadowColor:Colors.primary,shadowOpacity:0.3,shadowRadius:Spacing}]}
       {...otherProps} />
   );
 };
