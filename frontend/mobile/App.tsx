@@ -9,7 +9,6 @@ import Navigation from "./navigation";
 
 export default function App() {
   const [fontsLoaded] = useFonts(fonts);
-
   return !fontsLoaded ? null : (
     <Provider store={store}>
       <SafeAreaProvider>

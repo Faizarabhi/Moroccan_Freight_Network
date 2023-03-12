@@ -12,8 +12,9 @@ import HomeScreen from "../screens/HomeScreen";
 import LoginScreen from "../screens/LoginScreen";
 import RegisterScreen from "../screens/RegisterScreen";
 import Welcome from "../screens/WelcomeScreen";
-import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux'
 import { RootStackParamList } from "../types";
+import { RootState, AppDispatch } from '../redux/store'
 
 const theme = {
   ...DefaultTheme,
@@ -38,24 +39,23 @@ export default function Navigation() {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
-  // const { token } = useSelector((state: any) => state.auth.token);
-
+  const token = useSelector((state: RootState) => state.token);
+  console.log("Token:" ,token);
   return (
     <Stack.Navigator
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Stack.Screen name="Welcome" component={Welcome} />
-      {/* {!token ? ( */}
+      {token ? (
+        <Stack.Screen name="Home" component={HomeScreen} />
+      ) : (
         <>
-          <Stack.Screen name="Home" component={HomeScreen} />
+          <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
         </>
-      {/* ) : (
-        <Stack.Screen name="Home" component={HomeScreen} />
-      )} */}
+      )}
     </Stack.Navigator>
   );
 }

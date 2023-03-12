@@ -30,10 +30,10 @@ interface RegisterFormData {
 const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
   
   const dispatch = useAppDispatch();
-  const [formData, setFormData] = useState<RegisterFormData>({ name: 'youness', email: 'maska@madkasdsd.com', password: 'maska' });
+  const [formData, setFormData] = useState<RegisterFormData>({ name: '', email: '', password: '' });
   const handleRegister = () => {
-  // console.log(formData)
   dispatch(registerUser(formData));
+  navigate("Home")
 };
   return (
     <SafeAreaView>

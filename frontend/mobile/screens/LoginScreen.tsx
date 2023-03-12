@@ -6,19 +6,25 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import Spacing from "../constants/Spacing";
 import FontSize from "../constants/FontSize";
 import Colors from "../constants/Colors";
 import Font from "../constants/Font";
 import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../types";
+import { RootStackParamList, LoginFormData } from "../types";
+import { loginUser } from '../redux/actions/authActions';
+import { useAppDispatch } from "../redux/hooks";
 import AppTextInput from "../components/AppTextInput";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 const LoginScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
+  const [formData, setFormData] = useState<LoginFormData>({ email: 'faia@gmaill.com', password: '123456' });
+  const dispatch = useAppDispatch();
+
+  dispatch(loginUser(formData));
   return (
     <SafeAreaView>
       <View style={{ padding: Spacing * 2 }}>
@@ -27,8 +33,8 @@ const LoginScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
           <Text style={styles.subTitle}>Create Account</Text>
         </View>
         <View style={{ marginVertical: Spacing * 3 }}>
-          <TextInput placeholder="Email" placeholderTextColor={Colors.darkText} style={styles.input} />
-          <TextInput placeholder="Password" secureTextEntry placeholderTextColor={Colors.darkText} style={styles.input} />
+          <AppTextInput value={formData.email} onChangeText={(value) => setFormData({ ...formData, email: value })} placeholder="Email" />
+          <AppTextInput value={formData.password} secureTextEntry onChangeText={(value) => setFormData({ ...formData, password: value })} placeholder="Password" />
         </View>
         <View>
           <Text style={{
@@ -40,13 +46,14 @@ const LoginScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
             Forget Your Password ?
           </Text>
         </View>
-        <TouchableOpacity style={styles.bgbutton}>
+        <TouchableOpacity style={styles.bgbutton} 
+          onPress={() => navigate("Login")}>
           <Text style={styles.button}>Sign in</Text>
         </TouchableOpacity>
         <TouchableOpacity style={{
           padding: Spacing * 2,
         }}
-        onPress={()=>navigate("Register")}>
+          onPress={() => navigate("Register")}>
           <Text style={{ fontFamily: Font["poppins-bold"], color: Colors.text, textAlign: "center", fontSize: FontSize.small }}>Create a new account</Text>
         </TouchableOpacity>
         <Text style={{ fontFamily: Font["poppins-bold"], color: Colors.primary, textAlign: "center", fontSize: FontSize.small }}>Or Continue with</Text>
@@ -114,7 +121,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center"
   },
-  icon:{
+  icon: {
     padding: Spacing,
     backgroundColor: Colors.gray,
     borderRadius: Spacing / 2,

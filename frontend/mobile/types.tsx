@@ -47,9 +47,24 @@ export interface AuthState {
   error: string | null;
 }
 
+
 export const initialState: AuthState = {
   token: null,
   error: null,
 };
 
 export type AuthAction = RegisterAction;
+
+export interface LoginFormData {
+  email: string;
+  password: string;
+}
+export interface LoginSuccessAction {
+  type: 'LOGIN_SUCCESS';
+  payload: string; // JWT token
+}
+export interface LoginErrorAction {
+  type: 'LOGIN_ERROR';
+  payload: string; // error message
+}
+export type LoginAction = LoginSuccessAction | LoginErrorAction  | any;
