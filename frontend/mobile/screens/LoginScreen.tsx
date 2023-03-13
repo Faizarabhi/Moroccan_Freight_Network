@@ -4,6 +4,7 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Image,
   View,
 } from "react-native";
 import React, { useState } from "react";
@@ -68,7 +69,8 @@ const LoginScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
             <Ionicons name="logo-facebook" color={Colors.text} size={Spacing * 2} />
           </TouchableOpacity>
         </View>
-      </View>
+      </View> 
+     
     </SafeAreaView>
   );
 };

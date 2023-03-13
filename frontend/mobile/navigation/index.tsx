@@ -15,7 +15,7 @@ import Welcome from "../screens/WelcomeScreen";
 import { useSelector } from 'react-redux'
 import { RootStackParamList } from "../types";
 import { RootState, AppDispatch } from '../redux/store'
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -37,10 +37,25 @@ export default function Navigation() {
  * https://reactnavigation.org/docs/modal
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
-
+const storeData = async (value: string="rr") => {
+  try {
+    await AsyncStorage.setItem('Key', value)
+    // const value = await AsyncStorage.getItem("key")
+    // console.log(value)
+    let a = () => {
+      AsyncStorage.getItem('Key', (err, result) => {
+        console.log(result,"result");
+      });}
+      a()
+  } catch (e) {
+    // saving error
+  }
+}
 function RootNavigator() {
-  const token = useSelector((state: RootState) => state.token);
-  console.log("Token:" ,token);
+  const token: string = useSelector((state: RootState) => state.token);
+  storeData(token)
+
+  // console.log("Token:", token);
   return (
     <Stack.Navigator
       screenOptions={{
