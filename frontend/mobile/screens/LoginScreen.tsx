@@ -22,7 +22,7 @@ import AppTextInput from "../components/AppTextInput";
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 const LoginScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
-  const [formData, setFormData] = useState<LoginFormData>({ email: 'faia@gmaill.com', password: '123456' });
+  const [formData, setFormData] = useState<LoginFormData>({ email: 'charikatokom@gmxall.mcom', password: '123456' });
   const dispatch = useAppDispatch();
 
   dispatch(loginUser(formData));

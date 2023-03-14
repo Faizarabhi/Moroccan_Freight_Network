@@ -15,7 +15,7 @@ const registerCompany = asyncHandler(async (req, res) => {
   }
 
   // Check if user exists
-  const companyExists = await Company.findOne({ companyName,lat,lont })
+  const companyExists = await Company.findOne({ companyName, lat, lont })
 
   if (companyExists) {
     res.status(400)
@@ -72,13 +72,21 @@ const loginCompany = asyncHandler(async (req, res) => {
   }
 })
 
-// @desc    Get user data
-// @route   GET /api/users/me
+// @desc    Get company data
+// @route   GET /api/companys/me
 // @access  Private
 const getMe = asyncHandler(async (req, res) => {
   res.status(200).json(req.company)
 })
 
+// @desc    Get comapanys data
+// @route   GET /api/companys/getAllCompanys
+// @access  Public
+const getCompanys = async () => {
+  const companys = await Company.find({})
+  console.log(companys)
+  return companys
+}
 // Generate JWT
 const generateToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -90,4 +98,5 @@ module.exports = {
   registerCompany,
   loginCompany,
   getMe,
+  getCompanys
 }
