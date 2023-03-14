@@ -37,23 +37,24 @@ export default function Navigation() {
  * https://reactnavigation.org/docs/modal
  */
 const Stack = createNativeStackNavigator<RootStackParamList>();
-const storeData = async (value: string="rr") => {
+const storeData = async (value: string = "rr") => {
   try {
     await AsyncStorage.setItem('Key', value)
     // const value = await AsyncStorage.getItem("key")
     // console.log(value)
     let a = () => {
       AsyncStorage.getItem('Key', (err, result) => {
-        console.log(result,"result");
-      });}
-      a()
+        console.log(result, "result");
+      });
+    }
+    a()
   } catch (e) {
     // saving error
   }
 }
 function RootNavigator() {
-  const token: string = useSelector((state: RootState) => state.token);
-  storeData(token)
+  const token: string | null = useSelector((state: RootState) => state.token);
+  token ? storeData(token) : '';
 
   // console.log("Token:", token);
   return (

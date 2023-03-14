@@ -5,7 +5,8 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-  Button
+  Button,
+  ScrollView
 } from "react-native";
 import React, { useState } from "react";
 import Spacing from "../constants/Spacing";
@@ -22,63 +23,75 @@ import { useAppDispatch } from "../redux/hooks";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Register">;
 interface RegisterFormData {
-  name: string;
+  companyName: string;
   email: string;
   password: string;
+  tel: string,
+  adress: string,
+  lont: number,
+  lat: number
 }
 
 const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
-  
+
   const dispatch = useAppDispatch();
-  const [formData, setFormData] = useState<RegisterFormData>({ name: '', email: '', password: '' });
+  const [formData, setFormData] = useState<RegisterFormData>({ companyName: '', email: '', password: '', tel: '', adress: '', lont: 0, lat: 0 });
   const handleRegister = () => {
-  dispatch(registerUser(formData));
-  navigate("Home")
-};
+    dispatch(registerUser(formData));
+    navigate("Home")
+  };
   return (
     <SafeAreaView>
-      <View style={{ padding: Spacing * 2 }}>
-        <View style={{ alignItems: "center" }}>
-          <Text style={styles.title}>Create Account</Text>
-          <Text style={styles.subTitle}>Create an account so you can add your copmany with others</Text>
-        </View>
-        <View style={{ marginVertical: Spacing * 3 }}>
-          <AppTextInput value={formData.name} onChangeText={(value) => setFormData({ ...formData, name: value })} placeholder="Username" />
-          <AppTextInput value={formData.email} onChangeText={(value) => setFormData({ ...formData, email: value })} placeholder="Email" />
-          <AppTextInput value={formData.password} secureTextEntry onChangeText={(value) => setFormData({ ...formData, password: value })} placeholder="Password" />
-        </View>
-        <View>
-          <Text style={{
-            fontFamily: Font["poppins-semiBold"],
-            fontSize: FontSize.small,
-            color: Colors.primary,
-            alignSelf: "flex-end"
-          }}>
-            Forget Your Password ?
-          </Text>
-        </View>
-        <TouchableOpacity style={styles.bgbutton} onPress={handleRegister}>
-          <Text style={styles.button}>Sign in</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={{
-          padding: Spacing * 2,
-        }}
-          onPress={() => navigate("Login")}>
-          <Text style={{ fontFamily: Font["poppins-bold"], color: Colors.text, textAlign: "center", fontSize: FontSize.small }} onPress={() => navigate("Login")}> Alread have an account</Text>
-        </TouchableOpacity>
-        <Text style={{ fontFamily: Font["poppins-bold"], color: Colors.primary, textAlign: "center", fontSize: FontSize.small }}>Or Continue with</Text>
-        <View style={styles.icons}>
-          <TouchableOpacity style={styles.icon}>
-            <Ionicons name="logo-google" color={Colors.text} size={Spacing * 2} />
+      <ScrollView
+        >
+        <View style={{ padding: Spacing * 2 }}>
+          <View style={{ alignItems: "center" }}>
+            <Text style={styles.title}>Create Account</Text>
+            <Text style={styles.subTitle}>Create an account so you can add your copmany with others</Text>
+          </View>
+          <View style={{ marginVertical: Spacing * 3 }}>
+            <AppTextInput value={formData.companyName} onChangeText={(value) => setFormData({ ...formData, companyName: value })} placeholder="companyName" />
+            <AppTextInput value={formData.email} onChangeText={(value) => setFormData({ ...formData, email: value })} placeholder="Email" />
+            <AppTextInput value={formData.password} secureTextEntry onChangeText={(value) => setFormData({ ...formData, password: value })} placeholder="Password" />
+            <AppTextInput value={formData.tel} onChangeText={(value) => setFormData({ ...formData, tel: value })} placeholder="tel" />
+            <AppTextInput value={formData.adress} onChangeText={(value) => setFormData({ ...formData, adress: value })} placeholder="Adress" />
+            {/* !companyName || !email || !password || !tel || !adress || !lont || !lat */}
+            <AppTextInput value={formData.lont} onChangeText={(value) => setFormData({ ...formData, lont: value })} placeholder="Longtitude" />
+            <AppTextInput value={formData.lat}  onChangeText={(value) => setFormData({ ...formData, lat: value })} placeholder="Latiude" />
+          </View>
+          <View>
+            <Text style={{
+              fontFamily: Font["poppins-semiBold"],
+              fontSize: FontSize.small,
+              color: Colors.primary,
+              alignSelf: "flex-end"
+            }}>
+              Forget Your Password ?
+            </Text>
+          </View>
+          <TouchableOpacity style={styles.bgbutton} onPress={handleRegister}>
+            <Text style={styles.button}>Sign in</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.icon}>
-            <Ionicons name="logo-apple" color={Colors.text} size={Spacing * 2} />
+          <TouchableOpacity style={{
+            padding: Spacing * 2,
+          }}
+            onPress={() => navigate("Login")}>
+            <Text style={{ fontFamily: Font["poppins-bold"], color: Colors.text, textAlign: "center", fontSize: FontSize.small }} onPress={() => navigate("Login")}> Alread have an account</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.icon}>
-            <Ionicons name="logo-facebook" color={Colors.text} size={Spacing * 2} />
-          </TouchableOpacity>
+          <Text style={{ fontFamily: Font["poppins-bold"], color: Colors.primary, textAlign: "center", fontSize: FontSize.small }}>Or Continue with</Text>
+          <View style={styles.icons}>
+            <TouchableOpacity style={styles.icon}>
+              <Ionicons name="logo-google" color={Colors.text} size={Spacing * 2} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.icon}>
+              <Ionicons name="logo-apple" color={Colors.text} size={Spacing * 2} />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.icon}>
+              <Ionicons name="logo-facebook" color={Colors.text} size={Spacing * 2} />
+            </TouchableOpacity>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };
