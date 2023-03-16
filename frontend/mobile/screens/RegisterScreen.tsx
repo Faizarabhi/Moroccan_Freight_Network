@@ -2,24 +2,19 @@ import {
   SafeAreaView,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
   Button,
   ScrollView
 } from "react-native";
 import React, { useState } from "react";
-import Spacing from "../constants/Spacing";
-import FontSize from "../constants/FontSize";
-import Colors from "../constants/Colors";
-import Font from "../constants/Font";
+import { Spacing, FontSize, Colors, Font } from "../constants";
 import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types";
-import { useDispatch } from 'react-redux';
-import { registerUser } from '../redux/actions/authActions';
 import AppTextInput from "../components/AppTextInput";
-import { useAppDispatch } from "../redux/hooks";
+import { useDispatch } from "react-redux";
+import { registerCompany } from "../app/features/auth/authSlice";
 
 type Props = NativeStackScreenProps<RootStackParamList, "Register">;
 interface RegisterFormData {
@@ -33,31 +28,28 @@ interface RegisterFormData {
 }
 
 const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
-
-  const dispatch = useAppDispatch();
+  const dispatch = useDispatch()
   const [formData, setFormData] = useState<RegisterFormData>({ companyName: '', email: '', password: '', tel: '', adress: '', lont: 0, lat: 0 });
   const handleRegister = () => {
-    dispatch(registerUser(formData));
-    navigate("Home")
+    dispatch(registerCompany(formData))
   };
   return (
     <SafeAreaView>
       <ScrollView
-        >
+      >
         <View style={{ padding: Spacing * 2 }}>
           <View style={{ alignItems: "center" }}>
             <Text style={styles.title}>Create Account</Text>
             <Text style={styles.subTitle}>Create an account so you can add your copmany with others</Text>
           </View>
           <View style={{ marginVertical: Spacing * 3 }}>
-            <AppTextInput value={formData.companyName} onChangeText={(value) => setFormData({ ...formData, companyName: value })} placeholder="companyName" />
+            <AppTextInput value={formData.companyName} onChangeText={(value: any) => setFormData({ ...formData, companyName: value })} placeholder="companyName" />
             <AppTextInput value={formData.email} onChangeText={(value) => setFormData({ ...formData, email: value })} placeholder="Email" />
             <AppTextInput value={formData.password} secureTextEntry onChangeText={(value) => setFormData({ ...formData, password: value })} placeholder="Password" />
             <AppTextInput value={formData.tel} onChangeText={(value) => setFormData({ ...formData, tel: value })} placeholder="tel" />
             <AppTextInput value={formData.adress} onChangeText={(value) => setFormData({ ...formData, adress: value })} placeholder="Adress" />
-            {/* !companyName || !email || !password || !tel || !adress || !lont || !lat */}
-            <AppTextInput value={formData.lont} onChangeText={(value) => setFormData({ ...formData, lont: value })} placeholder="Longtitude" />
-            <AppTextInput value={formData.lat}  onChangeText={(value) => setFormData({ ...formData, lat: value })} placeholder="Latiude" />
+            <AppTextInput value={formData.lont} onChangeText={(value: any) => setFormData({ ...formData, lont: value })} placeholder="Longtitude" />
+            <AppTextInput value={formData.lat} onChangeText={(value: any) => setFormData({ ...formData, lat: value })} placeholder="Latiude" />
           </View>
           <View>
             <Text style={{
@@ -71,6 +63,9 @@ const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
           </View>
           <TouchableOpacity style={styles.bgbutton} onPress={handleRegister}>
             <Text style={styles.button}>Sign in</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.bgbutton} onPress={handleRegister}>
+            <Text style={styles.button} onPress={() => navigate('Coordinate')}>Take your Coordinate</Text>
           </TouchableOpacity>
           <TouchableOpacity style={{
             padding: Spacing * 2,

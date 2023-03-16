@@ -1,31 +1,19 @@
-import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  Image,
-  View,
-} from "react-native";
+import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import React, { useState } from "react";
-import Spacing from "../constants/Spacing";
-import FontSize from "../constants/FontSize";
-import Colors from "../constants/Colors";
-import Font from "../constants/Font";
+import { Spacing, FontSize, Colors, Font } from "../constants";
 import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList, LoginFormData } from "../types";
-import { loginUser } from '../redux/actions/authActions';
-import { useAppDispatch } from "../redux/hooks";
+import { useDispatch } from "react-redux";
 import AppTextInput from "../components/AppTextInput";
-
+import { loginCompany } from '../app/features//auth/authSlice'
 type Props = NativeStackScreenProps<RootStackParamList, "Login">;
 
 const LoginScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
-  const [formData, setFormData] = useState<LoginFormData>({ email: 'charikatokom@gmxall.mcom', password: '123456' });
-  const dispatch = useAppDispatch();
+  const [formData, setFormData] = useState<LoginFormData>({ email: '', password: '123456' });
+  const dispatch = useDispatch();
 
-  dispatch(loginUser(formData));
+  dispatch(loginCompany(formData));
   return (
     <SafeAreaView>
       <View style={{ padding: Spacing * 2 }}>
@@ -47,7 +35,7 @@ const LoginScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
             Forget Your Password ?
           </Text>
         </View>
-        <TouchableOpacity style={styles.bgbutton} 
+        <TouchableOpacity style={styles.bgbutton}
           onPress={() => navigate("Login")}>
           <Text style={styles.button}>Sign in</Text>
         </TouchableOpacity>
@@ -69,8 +57,8 @@ const LoginScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
             <Ionicons name="logo-facebook" color={Colors.text} size={Spacing * 2} />
           </TouchableOpacity>
         </View>
-      </View> 
-     
+      </View>
+
     </SafeAreaView>
   );
 };

@@ -24,7 +24,7 @@ const companySchema = mongoose.Schema(
       required: [true, 'Please add a adress'],
     },
     lont: {
-      type: String,
+      type: Number,
       required: [true, 'Please add a adress'],
     },
     lat: {

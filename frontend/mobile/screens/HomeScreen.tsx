@@ -1,17 +1,12 @@
 import {
   Switch,
   StyleSheet,
-  View,
-  Dimensions,
-  Text,
-  Image,
-  FlatList
+  View
 } from "react-native";
-import MapView, { PROVIDER_GOOGLE, Marker, Callout, Geojson } from 'react-native-maps';
-import React, { useState } from "react";
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import React, { useState, useEffect } from "react";
 import { styled } from './StyleMap';
-import { Entypo, Feather, MaterialCommunityIcons } from '@expo/vector-icons';
-const { height, width } = Dimensions.get("window");
+import MarkerCard from "../components/MarkerCard";
 let a = [
   [100.0, 0.0],
   [103.0, 1.0],
@@ -31,7 +26,8 @@ const myPlace = {
   ]
 };
 const HomeScreen = () => {
-  console.log("coordinate:", myPlace.features[0].geometry.coordinates[0], "||", myPlace.features[0].geometry.coordinates[1])
+  useEffect(() => {
+  })
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (
@@ -40,46 +36,16 @@ const HomeScreen = () => {
       <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
-        // company name / email / password / adress // lat lont
         customMapStyle={isEnabled ? styled : []}
       >
-        <Geojson
+        {/* <Geojson
           geojson={myPlace}
-        />
-        <Marker coordinate={{
-          latitude: 37.78825,
-          longitude: -122.4324
-        }}
-          title="hello"
-          description="this is discription"
-          pinColor="red">
-          <View style={{ padding: 10 }}>
-            <MaterialCommunityIcons name="truck-delivery" size={24} color="red" />
-            <Feather name="map-pin" size={20} color="red" />
-          </View>
-          <Callout tooltip style={{ padding: 12 }}>
-            <View style={{
-              height: 150, width: 200, flexDirection: "column", position: "relative", justifyContent: "center",
-            }}>
-              <View style={[{ justifyContent: "center", alignItems: "center", alignContent: "center" }, { backgroundColor: "white", maxWidth: '100%', borderRadius: 12 }]}>
-                <View style={[{ backgroundColor: "#fec", borderRadius: 40, width: 60, height: 60, position: "absolute", top: -35, left: "35%", zIndex: 1, borderWidth: 6, borderColor: "white" }]}>
-                  <Image source={{ uri: 'https://asstra.com/assets/templates/html/images/new_year_logo.png' }} style={{ resizeMode: 'contain', width: "100%", height: "100%" }} />
-                </View>
-                <View style={{ height: "70%", justifyContent: "center", alignItems: "center", alignContent: "center", padding: 12 }}>
-                  <FlatList
-                    data={[{ name: "faiza", tel: "06 16 18 77", id: 12 }]}
-                    renderItem={({ item }) => <>
-                      <Text style={styles.item}>name :{item.name}</Text>
-                      <Text style={styles.item}>tel  : {item.tel}</Text>
-                    </>
-                    }
-                  // keyExtractor={(item) => item.id}
-                  />
-                </View>
-              </View>
-            </View>
-          </Callout>
-        </Marker>
+        /> */}
+
+
+
+
+        <MarkerCard />
       </MapView>
       <View style={styles.switch}>
         <Switch

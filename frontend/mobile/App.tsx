@@ -2,8 +2,9 @@ import { useFonts } from "expo-font";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from 'react-redux';
-import store from './redux/store';
 import fonts from "./config/fonts";
+import {store} from './app/store'
+
 
 import Navigation from "./navigation";
 

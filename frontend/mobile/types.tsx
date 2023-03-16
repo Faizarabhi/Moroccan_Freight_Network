@@ -15,7 +15,8 @@ export type RootStackParamList = {
   Welcome: undefined;
   Login: undefined;
   Register: undefined;
-  Home: undefined
+  Home: undefined,
+  Coordinate: undefined
 };
 
 export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
@@ -25,9 +26,13 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
 // actions
   
  export interface RegisterFormData {
-  name: string;
+  companyName: string;
   email: string;
   password: string;
+  tel: string,
+  adress: string,
+  lont: number,
+  lat: number
 }
 
 export interface RegisterSuccessAction {

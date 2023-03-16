@@ -26,7 +26,7 @@ const registerCompany = asyncHandler(async (req, res) => {
   const salt = await bcrypt.genSalt(10)
   const hashedPassword = await bcrypt.hash(password, salt)
 
-  // Create user
+  // Create company
   const company = await Company.create({
     companyName,
     email,
@@ -82,10 +82,10 @@ const getMe = asyncHandler(async (req, res) => {
 // @desc    Get comapanys data
 // @route   GET /api/companys/getAllCompanys
 // @access  Public
-const getCompanys = async () => {
+const getCompanys = async (req, res) => {
   const companys = await Company.find({})
-  console.log(companys)
-  return companys
+  // console.log(companys)
+  res.status(200).json(companys)
 }
 // Generate JWT
 const generateToken = (id) => {
