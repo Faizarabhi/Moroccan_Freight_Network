@@ -1,12 +1,16 @@
 import {
   Switch,
   StyleSheet,
-  View
+  View,
+  FlatList
 } from "react-native";
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import React, { useState, useEffect } from "react";
 import { styled } from './StyleMap';
 import MarkerCard from "../components/MarkerCard";
+import { useDispatch, useSelector } from "react-redux";
+import { companysData } from "../app/features/auth/authSlice";
+import { RootState } from "../app/store";
 let a = [
   [100.0, 0.0],
   [103.0, 1.0],
@@ -26,8 +30,17 @@ const myPlace = {
   ]
 };
 const HomeScreen = () => {
+  const { companies }: any = useSelector((state: RootState) => state.auth);
+  // const [data,setData] = useState(companies)
+  if (companies) {
+    // setData(companies)
+    // console.log(data)
+  }
+  const dispatch = useDispatch()
   useEffect(() => {
-  })
+    dispatch(companysData())
+
+  }, [])
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (
@@ -42,10 +55,16 @@ const HomeScreen = () => {
           geojson={myPlace}
         /> */}
 
+        <FlatList
+          data={companies}
+          renderItem={({ item }) => <MarkerCard email={item.email} tel={item.tel} adress={item.adress} long={item.lont} lat= {item.lat}/>}
+          keyExtractor={item => item._id}
+        />
 
-
-
-        <MarkerCard />
+        {/* {companies.map((item: any, index: any) => (
+          <MarkerCard key={index}  lat={companies[0].lat} lont={companies[0].lont}
+           />
+        ))} */}
       </MapView>
       <View style={styles.switch}>
         <Switch

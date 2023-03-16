@@ -2,16 +2,16 @@ import React, { useEffect, useState } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { Spacing, FontSize, Colors, Font } from "../constants";
-import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from "../types";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 type Props = NativeStackScreenProps<RootStackParamList, "Coordinate">;
 
 const CoordinatScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
     const [coordinate, setCoordinate] = useState({})
+    
+    console.log(coordinate)
     const TakeCoordiante = () => {
         navigate("Register")
-        console.log(coordinate)
     };
     return (
         <View style={styles.container}>

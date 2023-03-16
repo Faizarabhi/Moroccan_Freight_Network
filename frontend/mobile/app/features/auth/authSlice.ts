@@ -20,6 +20,7 @@ const storeData = async (value: string) => {
 }
 
 const initialeState = {
+    companies:null,
     company: null,
     isError: false,
     isSuccess: false,
@@ -53,27 +54,35 @@ export const loginCompany: any = createAsyncThunk(
     }
 );
 
+export const companysData: any = createAsyncThunk(
+    'auth/companysData',
+    async (_, thunkAPI) => {
+        try {
+            return await authService.companysData()
 
+        } catch (error: any) {
+            const message = (error.response && error.response.data && error.response.data.message) || error.message || error.toString();
+            return thunkAPI.rejectWithValue(message);
+        }
+    }
+);
 export const authSlice = createSlice({
     name: 'auth',
     initialState: initialeState,
     reducers: {
     },
     extraReducers: (builder) => {
-        // builder.addCase(RegisterCompany.pending, (state) => {
-        //     state.isLoading = true;
-        // })
-        // .addCase(RegisterCompany.fulfilled, (state, action) => {
-        //     state.isLoading = false;
-        //     state.isSuccess = true;
-        //     state.company = action.payload;
-        // })
-        // .addCase(RegisterCompany.rejected, (state, action) => {
-        //     state.isLoading = false;
-        //     state.isError = true;
-        //     state.message = action.payload;
-        //     state.company = null;
-        // });
+        builder.addCase(companysData.fulfilled, (state,action) => {
+            state.isLoading = false;
+            state.isSuccess=true
+            state.companies=action.payload
+        })
+        .addCase(companysData.rejected, (state, action) => {
+            state.isLoading = true;
+            state.isError = true;
+            state.message = action.payload;
+            state.companies = null;
+        })
     }
 })
 

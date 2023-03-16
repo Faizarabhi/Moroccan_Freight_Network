@@ -27,7 +27,10 @@ export const loginData = async (data: LoginFormData) => {
 }
 
 export const companysData = async () => {
-    console.log("all data")
+    const res = await axios.get(`${API_URL}companys/getAllCompanys`)
+    if (res.data) {
+        return res.data
+    }
 }
 
 const authService = {

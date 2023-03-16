@@ -8,7 +8,7 @@ import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import * as React from "react";
 import Colors from "../constants/Colors";
-import { HomeScreen, LoginScreen, RegisterScreen, WelcomeScreen,CoordinatScreen } from "../screens";
+import { HomeScreen, LoginScreen, RegisterScreen, WelcomeScreen, CoordinatScreen } from "../screens";
 import Welcome from "../screens/WelcomeScreen";
 import { useSelector } from 'react-redux'
 import { RootStackParamList } from "../types";
@@ -33,8 +33,8 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function RootNavigator() {
 
   const token: string | null = useSelector((state: RootState) => state.token);
-  // token ? storeData(token) : '';
-  console.log("Token:", token);
+
+  // console.log("Token:", tokenStored);
   return (
     <Stack.Navigator
       screenOptions={{
@@ -45,10 +45,10 @@ function RootNavigator() {
         <Stack.Screen name="Home" component={HomeScreen} />
       ) : (
         <>
-          {/* <Stack.Screen name="Welcome" component={Welcome} /> */}
+          <Stack.Screen name="Welcome" component={Welcome} />
           <Stack.Screen name="Login" component={LoginScreen} />
           <Stack.Screen name="Register" component={RegisterScreen} />
-          <Stack.Screen name="Coordinate" component={CoordinatScreen}/>
+          <Stack.Screen name="Coordinate" component={CoordinatScreen} />
         </>
       )}
     </Stack.Navigator>
