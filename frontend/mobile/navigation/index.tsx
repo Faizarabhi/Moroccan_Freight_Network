@@ -13,7 +13,7 @@ import Welcome from "../screens/WelcomeScreen";
 import { useSelector } from 'react-redux'
 import { RootStackParamList } from "../types";
 import { RootState } from "../app/store";
-
+import { token } from "../app/features/auth/authService";
 const theme = {
   ...DefaultTheme,
   colors: {
@@ -34,8 +34,10 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
 
-  const token: string | null = useSelector((state: RootState) => state.token);
-// console.log('token',token)
+  
+
+
+console.log('token',token)
   // console.log("Token:", tokenStored);
   return (
     <Stack.Navigator
