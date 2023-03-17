@@ -4,7 +4,6 @@ import {
   Text,
   TouchableOpacity,
   View,
-  Button,
   ScrollView
 } from "react-native";
 import React, { useState } from "react";
@@ -13,8 +12,11 @@ import { Ionicons } from "@expo/vector-icons";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../types";
 import AppTextInput from "../components/AppTextInput";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerCompany } from "../app/features/auth/authSlice";
+import { addData } from '../app/features/auth/authSlice';
+import { useRoute } from "@react-navigation/native";
+
 
 type Props = NativeStackScreenProps<RootStackParamList, "Register">;
 interface RegisterFormData {
@@ -26,12 +28,22 @@ interface RegisterFormData {
   lont: number,
   lat: number
 }
-
+ interface params {
+  longitude: number;
+  latitude: number;
+}
 const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
+  // const Data = useSelector(addData);
+  // console.log(Data)
   const dispatch = useDispatch()
+  const route = useRoute();
   const [formData, setFormData] = useState<RegisterFormData>({ companyName: '', email: '', password: '', tel: '', adress: '', lont: 0, lat: 0 });
+  formData.lont = route.params?.params?.longitude || 0;
+  formData.lat = route.params?.params?.latitude || 0;
   const handleRegister = () => {
+    navigate('Home')
     dispatch(registerCompany(formData))
+
   };
   return (
     <SafeAreaView>
@@ -48,8 +60,10 @@ const RegisterScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
             <AppTextInput value={formData.password} secureTextEntry onChangeText={(value) => setFormData({ ...formData, password: value })} placeholder="Password" />
             <AppTextInput value={formData.tel} onChangeText={(value) => setFormData({ ...formData, tel: value })} placeholder="tel" />
             <AppTextInput value={formData.adress} onChangeText={(value) => setFormData({ ...formData, adress: value })} placeholder="Adress" />
-            <AppTextInput value={formData.lont} onChangeText={(value: any) => setFormData({ ...formData, lont: value })} placeholder="Longtitude" />
-            <AppTextInput value={formData.lat} onChangeText={(value: any) => setFormData({ ...formData, lat: value })} placeholder="Latiude" />
+            <AppTextInput value={formData.lont} onChangeText={(value: any) => setFormData({ ...formData, lont: value })} placeholder="Longitude" />
+            <AppTextInput value={formData.lat} onChangeText={(value: any) => setFormData({ ...formData, lat: value })} placeholder="Latitude" />
+            {/* <AppTextInput value={formData.lont} onChangeText={(value: any) => setFormData({ ...formData, lont: value })} placeholder="Longtitude" />
+            <AppTextInput value={formData.lat} onChangeText={(value: any) => setFormData({ ...formData, lat: value })} placeholder="Latiude" /> */}
           </View>
           <View>
             <Text style={{

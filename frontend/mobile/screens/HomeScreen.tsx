@@ -11,60 +11,34 @@ import MarkerCard from "../components/MarkerCard";
 import { useDispatch, useSelector } from "react-redux";
 import { companysData } from "../app/features/auth/authSlice";
 import { RootState } from "../app/store";
-let a = [
-  [100.0, 0.0],
-  [103.0, 1.0],
-  [104.0, 0.0],
-  [105.0, 1.0]]
-const myPlace = {
-  type: 'FeatureCollection',
-  features: [
-    {
-      type: 'Polygon',
-      properties: {},
-      geometry: {
-        type: 'MultiPoint',
-        coordinates: a,
-      }
-    }
-  ]
-};
+
 const HomeScreen = () => {
   const { companies }: any = useSelector((state: RootState) => state.auth);
-  // const [data,setData] = useState(companies)
-  if (companies) {
-    // setData(companies)
-    // console.log(data)
-  }
+
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(companysData())
-
   }, [])
   const [isEnabled, setIsEnabled] = useState(false);
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   return (
     <View>
-
       <MapView
         provider={PROVIDER_GOOGLE} // remove if not using Google Maps
         style={styles.map}
         customMapStyle={isEnabled ? styled : []}
       >
-        {/* <Geojson
-          geojson={myPlace}
-        /> */}
-
-        <FlatList
-          data={companies}
-          renderItem={({ item }) => <MarkerCard email={item.email} tel={item.tel} adress={item.adress} long={item.lont} lat= {item.lat}/>}
-          keyExtractor={item => item._id}
-        />
-
-        {/* {companies.map((item: any, index: any) => (
-          <MarkerCard key={index}  lat={companies[0].lat} lont={companies[0].lont}
-           />
-        ))} */}
+        {companies?.map((item: any) => (
+          <MarkerCard
+            key={item._id}
+            id={item._id}
+            address={item.adress}
+            email={item.email}
+            tel={item.tel}
+            long={item.lont}
+            lat={item.lat}
+          />
+        ))}
       </MapView>
       <View style={styles.switch}>
         <Switch
@@ -75,7 +49,6 @@ const HomeScreen = () => {
           value={isEnabled}
         />
       </View>
-
     </View >
   );
 };

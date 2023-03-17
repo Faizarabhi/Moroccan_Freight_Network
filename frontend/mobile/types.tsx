@@ -7,14 +7,18 @@ import { NativeStackScreenProps } from "@react-navigation/native-stack";
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends RootStackParamList {}
+    interface RootParamList extends RootStackParamList { }
   }
 }
-
+export interface coordinate {
+  longitude: number;
+  latitude: number;
+}
+export const coordinateData = {};
 export type RootStackParamList = {
   Welcome: undefined;
   Login: undefined;
-  Register: undefined;
+  Register: { params: { longitude: number, latitude: number } };
   Home: undefined,
   Coordinate: undefined
 
@@ -25,8 +29,8 @@ export type RootStackScreenProps<Screen extends keyof RootStackParamList> =
 
 
 // actions
-  
- export interface RegisterFormData {
+
+export interface RegisterFormData {
   companyName: string;
   email: string;
   password: string;
@@ -46,7 +50,7 @@ export interface RegisterErrorAction {
   payload: string; // error message
 }
 
-export type RegisterAction = RegisterSuccessAction | RegisterErrorAction  | any;
+export type RegisterAction = RegisterSuccessAction | RegisterErrorAction | any;
 // reducer
 export interface AuthState {
   token: string | null;
@@ -73,4 +77,4 @@ export interface LoginErrorAction {
   type: 'LOGIN_ERROR';
   payload: string; // error message
 }
-export type LoginAction = LoginSuccessAction | LoginErrorAction  | any;
+export type LoginAction = LoginSuccessAction | LoginErrorAction | any;

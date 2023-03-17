@@ -1,12 +1,12 @@
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native'
+import { View, Text, StyleSheet, Image  } from 'react-native'
 import { Marker, Callout, Geojson } from 'react-native-maps';
 interface Props {
     email: string;
     tel: string;
-    adress: string
+    address: string
 }
 
-const CallouCards = ({ email, tel, adress }: Props) => {
+const CallouCards = ({ email, tel, address }: Props) => {
     return (
         <View>
             <Callout tooltip style={{ padding: 12 }}>
@@ -21,7 +21,7 @@ const CallouCards = ({ email, tel, adress }: Props) => {
 
                             <Text style={styles.item}>email :{email}</Text>
                             <Text style={styles.item}>tel  : {tel}</Text>
-                            <Text style={styles.item}>adress  : {adress}</Text>
+                            <Text style={styles.item}>address  : {address}</Text>
 
                         </View>
                     </View>

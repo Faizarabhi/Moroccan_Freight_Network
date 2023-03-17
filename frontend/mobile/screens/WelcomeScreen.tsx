@@ -22,7 +22,7 @@ const WelcomeScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
   return (
     <SafeAreaView>
       <View >
-        <ImageBackground style={{ height: height / 2.5 }} resizeMode="contain" source={require("../assets/images/welcome-img.png")} />
+        <ImageBackground style={{ height: height / 2.5 }} resizeMode="contain" source={require("../assets/images/transport.png")} />
       </View>
       <View style={{ paddingHorizontal: Spacing * 4, paddingTop: Spacing * 4 }}>
         <Text style={styles.title}>Find Your Company Here</Text>

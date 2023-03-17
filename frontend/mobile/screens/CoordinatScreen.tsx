@@ -2,21 +2,35 @@ import React, { useEffect, useState } from 'react';
 import MapView, { Marker } from 'react-native-maps';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import { Spacing, FontSize, Colors, Font } from "../constants";
-import { RootStackParamList } from "../types";
+import { RootStackParamList, coordinate } from "../types";
+import { addData } from '../app/features/auth/authSlice';
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-type Props = NativeStackScreenProps<RootStackParamList, "Coordinate">;
+import { connect } from 'react-redux';
 
-const CoordinatScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
-    const [coordinate, setCoordinate] = useState({})
-    
-    console.log(coordinate)
+type Props = NativeStackScreenProps<RootStackParamList, "Coordinate"> & {
+    addData: (data: coordinate) => void;
+};
+
+// interface State {
+//     data: coordinate;
+// }
+
+const CoordinatScreen: React.FC<Props> = ({ navigation: { navigate }, addData }) => {
+ 
+    const [coordinat, setCoordinat] = useState({ latitude: 30.24642028086129, longitude: -0.4687850922346115 })
+    // console.log(coordinat)
+
     const TakeCoordiante = () => {
-        navigate("Register")
+        if (coordinat) {
+            addData(coordinat); // Call the action creator function to send data to the Redux store
+            // navigate("Register");
+            navigate("Register", { params: { longitude: coordinat.longitude, latitude: coordinat.latitude }});
+        }
     };
+
     return (
         <View style={styles.container}>
-            <MapView style={styles.map}
-            >
+            <MapView style={styles.map}>
                 <Marker
                     draggable={true}
                     coordinate={{
@@ -24,11 +38,9 @@ const CoordinatScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
                         longitude: -9.233574
                     }}
                     onDragEnd={(e) => {
-                        setCoordinate(e.nativeEvent.coordinate)
+                        setCoordinat(e.nativeEvent.coordinate)
                     }}
-                >
-
-                </Marker>
+                />
             </MapView>
             <TouchableOpacity style={styles.bgbutton} onPress={TakeCoordiante}>
                 <Text style={styles.button}>OK</Text>
@@ -37,7 +49,8 @@ const CoordinatScreen: React.FC<Props> = ({ navigation: { navigate } }) => {
     );
 }
 
-export default CoordinatScreen;
+export default connect(null, { addData })(CoordinatScreen); // Wrap your component with the `connect` function and pass in the `addData` action creator function to the `mapDispatchToProps` argument
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -68,5 +81,4 @@ const styles = StyleSheet.create({
         right: 30,
         bottom: 70,
     },
-
 });

@@ -1,27 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import authService from "./authService";
-import { RegisterFormData, LoginFormData } from '../../../types'
+import { RegisterFormData, LoginFormData, coordinateData, coordinate } from '../../../types'
 
-let company = null;
-const storeData = async (value: string) => {
-    try {
-        await AsyncStorage.setItem('Key', value)
 
-        //   let a = () => {
-        //     AsyncStorage.getItem('Key', (err, result) => {
-        //       console.log(result, "result");
-        //     });
-        //   }
-        //   a()
-    } catch (e) {
-        // saving error
-    }
-}
+
+export const addData = (data: coordinate) => {
+    return {
+        type: coordinateData,
+        payload: data
+    };
+};
+
+
+
 
 const initialeState = {
-    companies:null,
-    company: null,
+    companies: null,
+    addData: null,
     isError: false,
     isSuccess: false,
     isLoading: false,
@@ -72,17 +68,18 @@ export const authSlice = createSlice({
     reducers: {
     },
     extraReducers: (builder) => {
-        builder.addCase(companysData.fulfilled, (state,action) => {
+        builder.addCase(companysData.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.isSuccess=true
-            state.companies=action.payload
+            state.isSuccess = true
+            state.companies = action.payload
+
         })
-        .addCase(companysData.rejected, (state, action) => {
-            state.isLoading = true;
-            state.isError = true;
-            state.message = action.payload;
-            state.companies = null;
-        })
+            .addCase(companysData.rejected, (state, action) => {
+                state.isLoading = true;
+                state.isError = true;
+                state.message = action.payload;
+                state.companies = null;
+            })
     }
 })
 

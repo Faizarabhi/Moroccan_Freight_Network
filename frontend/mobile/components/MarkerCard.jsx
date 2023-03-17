@@ -1,11 +1,9 @@
 import React, { useState } from 'react'
 import {
-    Switch,
+    
     StyleSheet,
     View,
-    Text,
-    Image,
-    FlatList
+   
 } from "react-native";
 import CallouCards from './CallouCards';
 import { Marker, Callout, Geojson } from 'react-native-maps';
@@ -14,21 +12,21 @@ import { Feather, MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 
-function MarkerCard({ long, lat, email, tel, adress }) {
-    const [latitude, setLatitude] = useState(0)
-    const [longitude, setLongtitude] = useState(0)
+function MarkerCard({ long, lat, email, tel, address, id }) {
 
-    console.log("data :",long, lat, email, tel, adress)
+    // console.log("long :", long, "lat :", lat, "id:", id, email, tel, address)
     return (
-        <Marker coordinate={{ latitude: lat, longitude: long }}
+        <Marker
+            key={id}
+            coordinate={{ latitude: lat, longitude: long }}
             title={email}
             description={tel}
             pinColor="red">
             <View style={{ padding: 10 }}>
-                {/* <MaterialCommunityIcons name="truck-delivery" size={24} color="red" /> */}
-                <Feather name="map-pin" size={20} color="red" />
+                <MaterialCommunityIcons name="truck-delivery" size={24} color="red" />
+                {/* <Feather name="map-pin" size={20} color="red" /> */}
             </View>
-            <CallouCards email={email} tel={tel} adress={adress} />
+            <CallouCards email={email} tel={tel} address={address} />
         </Marker>
     )
 }
